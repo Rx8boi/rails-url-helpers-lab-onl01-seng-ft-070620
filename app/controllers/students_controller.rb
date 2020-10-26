@@ -9,10 +9,15 @@ class StudentsController < ApplicationController
   end
 
   def activate
-    @student = set_student
-    @student.toggle_active!
-    redirect_to students_path(@student)
-  end
+     @student = Student.find(params[:id])
+     if @student.active
+       @student.active = false
+     else
+       @student.active = true
+     end
+     @student.save
+     redirect_to student_path(@student)
+   end
 
   private
 
